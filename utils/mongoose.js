@@ -1,12 +1,20 @@
 let mongoose = require('mongoose');
-let db = mongoose.connect('mongodb://localhost/test');
 
-//账号信息表
-let UserSchema = new mongoose.Schema({
-  //账号
-  account:{type:String},
-  //密码
-  password:{type:String}
+let dbUrl = 'mongodb://localhost:27017/blog';
+
+let db = mongoose.createConnection(dbUrl, (err) => {
+  if (err) {
+    console.warn('数据库连接失败：' + err);
+  } else {
+    console.log('数据库成功连接到' + dbUrl);
+  }
 });
 
-mongoose.model('userInfo',UserSchema);
+//账号信息表
+let UserAccountSchema = new mongoose.Schema({
+  account: {type: String},//账号
+  password: {type: String},//密码
+  //id:Schema.Types.ObjectId,//主键
+});
+
+exports.UserAccount = db.model('UserAccount', UserAccountSchema);

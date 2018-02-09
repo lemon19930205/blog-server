@@ -1,13 +1,28 @@
-let mongoose = require('mongoose');
-//用户账号表
-let UserInfo = mongoose.model('UserInfo');
+let {UserAccount} = require('./mongoose');
 
-export function userLogin(account, password) {
-  UserInfo.find({"account": account, "password": password}, (err,doc)=> {
-    if(err){
+//注册
+exports.userLogon = function (account, password) {
+  UserAccount.create({account: account, password: password}, (err, doc) => {
+    if (err) {
       console.log(err);
-    }else {
-      console.log(doc);
+    } else {
+      //console.log(doc);
+      return doc
     }
   })
-}
+};
+
+
+//登陆
+exports.userLogin = function (account, password) {
+  let data;
+  UserAccount.findOne({account: account, password: password}, (err, doc) => {
+    if (err) {
+      console.log(err);
+    } else {
+      //console.log(doc);
+      data = doc;
+    }
+  });
+  return data;
+};
