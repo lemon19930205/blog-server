@@ -19,10 +19,10 @@ exports.userLogin = function (account, password) {
   UserAccount.findOne({account: account, password: password}, (err, doc) => {
     if (err) {
       console.log(err);
+      return err;
     } else {
       //console.log(doc);
-      data = doc;
+      return doc;
     }
   });
-  return data;
 };

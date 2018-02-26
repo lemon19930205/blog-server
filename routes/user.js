@@ -4,19 +4,20 @@ var router = express.Router();
 let {userLogon, userLogin} = require('../utils/index');
 
 //二级路径
+
 //注册
 router.post('/logon', function (req, res, next) {
   //console.log(req.body);
   let {account, password} = req.body;
   if (account && password) {
     let data = userLogon(account, password);
-    console.log(data);
-    if(data.id){
+
+    if (data.id) {
       res.send({
         status: 0,
         msg: "注册成功",
       })
-    }else {
+    } else {
       res.send({
         status: -1,
         msg: "注册失败",
@@ -31,14 +32,14 @@ router.post('/login', function (req, res, next) {
   let {account, password} = req.body;
   if (account && password) {
     let data = userLogin(account, password);
-    console.log(data);
-    if(data){
+    console.log(account, password, data);
+    if (data) {
       res.send({
         status: 0,
         msg: "登陆成功",
         data: data
       })
-    }else {
+    } else {
       res.send({
         status: -1,
         msg: "登陆失败",
